@@ -50,12 +50,37 @@
                  (const :tag "--tcp" tcp))
   :group 'lsp-uniteai)
 
+;;
+;; (@* "Client" )
+;;
+
+(lsp-register-client
+ (make-lsp-client
+  :new-connection
+  (cl-case lsp-uniteai-connection-method
+    (`stdio (lsp-stdio-connection "uniteai_lsp --stdio"))
+    (`tcp   (lsp-tcp-connection
+             (lambda (port)
+               `("uniteai_lsp" "--tcp" "--lsp_port" ,(number-to-string port))))))
+  :priority -2
+  :major-modes lsp-uniteai-active-modes
+  :server-id 'uniteai-lsp
+  :add-on? t))
+
+;;
+;; (@* "Util" )
+;;
+
 (defun lsp-uniteai--range ()
   "Return the current region in LSP scope."
   (unless (region-active-p)
     (user-error "No region selected"))
   (list :start (lsp--point-to-position (region-beginning))
         :end   (lsp--point-to-position (region-end))))
+
+;;
+;; (@* "Commands" )
+;;
 
 ;;
 ;;; Global stopping
@@ -70,7 +95,7 @@
 ;;
 ;;; Example Counter
 (defun lsp-uniteai-example-counter ()
-  ""
+  "TODO: .."
   (interactive)
   (let ((doc (lsp--text-document-identifier))
         (pos (lsp--cur-position)))
@@ -81,7 +106,7 @@
 ;;
 ;;; Document
 (defun lsp-uniteai-document ()
-  ""
+  "TODO: .."
   (interactive)
   (let ((doc (lsp--text-document-identifier))
         (range (lsp-uniteai--range)))
@@ -92,7 +117,7 @@
 ;;
 ;;; Local LLM
 (defun lsp-uniteai-local-llm ()
-  ""
+  "TODO: .."
   (interactive)
   (let* ((doc (lsp--text-document-identifier))
          (range (lsp-uniteai--range)))
@@ -103,6 +128,7 @@
 ;;
 ;;; Transcription
 (defun lsp-uniteai-transcribe ()
+  "TODO: .."
   (interactive)
   (let ((doc (lsp--text-document-identifier))
         (pos (lsp--cur-position)))
@@ -113,7 +139,7 @@
 ;;
 ;;; OpenAI
 (defun lsp-uniteai-openai-gpt ()
-  ""
+  "TODO: .."
   (interactive)
   (let ((doc (lsp--text-document-identifier))
         (range (lsp-uniteai--range)))
@@ -122,26 +148,13 @@
                     :arguments ,(vector doc range "FROM_CONFIG_COMPLETION" "FROM_CONFIG")))))
 
 (defun lsp-uniteai-openai-chatgpt ()
-  ""
+  "TODO: .."
   (interactive)
   (let ((doc (lsp--text-document-identifier))
         (range (lsp-uniteai--range)))
     (lsp-request "workspace/executeCommand"
                  `(:command "command.openaiAutocompleteStream"
                             :arguments ,(vector doc range "FROM_CONFIG_CHAT" "FROM_CONFIG")))))
-
-(lsp-register-client
- (make-lsp-client
-  :new-connection
-  (cl-case lsp-uniteai-connection-method
-    (`stdio (lsp-stdio-connection "uniteai_lsp --stdio"))
-    (`tcp   (lsp-tcp-connection
-             (lambda (port)
-               `("uniteai_lsp" "--tcp" "--lsp_port" ,(number-to-string port))))))
-  :priority -2
-  :major-modes lsp-uniteai-active-modes
-  :server-id 'uniteai-lsp
-  :add-on? t))
 
 (provide 'lsp-uniteai)
 ;;; lsp-uniteai.el ends here
