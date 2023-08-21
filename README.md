@@ -4,6 +4,8 @@
 # lsp-uniteai
 > LSP Clients for UniteAI
 
+[![CI](https://github.com/emacs-openai/lsp-uniteai/actions/workflows/test.yml/badge.svg)](https://github.com/emacs-openai/lsp-uniteai/actions/workflows/test.yml)
+
 `lsp-mode` client leveraging [uniteai](https://github.com/freckletonj/uniteai).
 
 ## 💾 Quickstart
