@@ -1,8 +1,10 @@
 ;;; lsp-uniteai.el --- LSP Clients for UniteAI  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2023  JenChieh
+;; Copyright (C) 2023 Josh Freckleton
+;; Copyright (C) 2023  Shen, JenChieh
 
-;; Author: JenChieh <jcs090218@gmail.com>
+;; Author: Josh Freckleton <freckletonj@gmail.com>
+;;         Shen, Jen-Chieh <jcs090218@gmail.com>
 ;; Maintainer: JenChieh <jcs090218@gmail.com>
 ;; URL: https://github.com/emacs-openai/lsp-uniteai
 ;; Version: 0.1.0
