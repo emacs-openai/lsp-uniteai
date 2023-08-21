@@ -5,3 +5,13 @@
 > LSP Clients for UniteAI
 
 `lsp-mode` client leveraging [uniteai](https://github.com/freckletonj/uniteai).
+
+## 💾 Quickstart
+
+```elisp
+(use-package lsp-uniteai
+  :ensure t
+  :hook (python-mode . (lambda ()
+                         (require lsp-uniteai)
+                         (lsp))))  ; or lsp-deferred
+```
