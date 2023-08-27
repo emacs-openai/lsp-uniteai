@@ -41,7 +41,13 @@
   :link '(url-link "https://github.com/emacs-openai/lsp-uniteai"))
 
 (defcustom lsp-uniteai-active-modes
-  '(python-mode markdown-mode org-mode)
+  '( markdown-mode org-mode python-mode bibtex-mode clojure-mode coffee-mode
+     c-mode c++-mode csharp-mode css-mode diff-mode dockerfile-mode fsharp-mode
+     go-mode groovy-mode html-mode web-mode java-mode js-mode js2-mode json-mode
+     LaTeX-mode less-css-mode lua-mode makefile-mode objc-mode perl-mode
+     php-mode text-mode powershell-mode ess-mode ruby-mode rust-mode scss-mode
+     sass-mode sh-mode sql-mode swift-mode typescript-mode TeX-mode nxml-mode
+     yaml-mode sh-mode toml-mode)
   "List of major mode that work with UniteAI."
   :type 'list
   :group 'lsp-uniteai)
@@ -56,6 +62,25 @@
 ;; (@* "Client" )
 ;;
 
+(defun lsp-uniteai--install-server (_client callback error-callback update?)
+  "Install/update UniteAI language server using `pip'.
+
+Will invoke CALLBACK or ERROR-CALLBACK based on result.
+Will update if UPDATE? is t"
+  (lsp-async-start-process
+   callback
+   error-callback
+   "pip" "--user" (if update? "upgrade" "install") "uniteai[all]"))
+
+;;;###autoload
+(defun lsp-uniteai-update-server ()
+  "Update UniteAI Language Server.
+
+On Windows, if the server is running, the updating will fail.
+After stopping or killing the process, retry to update."
+  (interactive)
+  (lsp-uniteai--install-server nil #'ignore #'lsp--error t))
+
 (lsp-register-client
  (make-lsp-client
   :new-connection
@@ -67,7 +92,8 @@
   :priority -2
   :major-modes lsp-uniteai-active-modes
   :server-id 'uniteai-lsp
-  :add-on? t))
+  :add-on? t
+  :download-server-fn #'lsp-uniteai--install-server))
 
 ;;
 ;; (@* "Util" )
