@@ -70,7 +70,7 @@ Will update if UPDATE? is t"
   (lsp-async-start-process
    callback
    error-callback
-   "pip" "--user" (if update? "upgrade" "install") "uniteai[all]"))
+   "pip" (if update? "install --upgrade" "install") "uniteai[all]"))
 
 ;;;###autoload
 (defun lsp-uniteai-update-server ()
@@ -85,7 +85,9 @@ After stopping or killing the process, retry to update."
  (make-lsp-client
   :new-connection
   (cl-case lsp-uniteai-connection-method
-    (`stdio (lsp-stdio-connection "uniteai_lsp --stdio"))
+    (`stdio (lsp-stdio-connection "uniteai_lsp --stdio"
+                                  (lambda (&rest _)
+                                    (zerop (shell-command "uniteai_lsp")))))
     (`tcp   (lsp-tcp-connection
              (lambda (port)
                `("uniteai_lsp" "--tcp" "--lsp_port" ,(number-to-string port))))))
