@@ -1,7 +1,7 @@
 ;;; lsp-uniteai.el --- LSP Clients for UniteAI  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2023 Josh Freckleton
-;; Copyright (C) 2023-2024  Shen, JenChieh
+;; Copyright (C) 2023-2025  Shen, JenChieh
 
 ;; Author: Josh Freckleton <freckletonj@gmail.com>
 ;;         Shen, Jen-Chieh <jcs090218@gmail.com>
