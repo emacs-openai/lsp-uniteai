@@ -1,3 +1,5 @@
+;; -*- mode: eask; lexical-binding: t -*-
+
 (package "lsp-uniteai"
          "0.1.0"
          "LSP Clients for UniteAI")
