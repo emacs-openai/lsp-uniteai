@@ -8,7 +8,7 @@
 ;; Maintainer: JenChieh <jcs090218@gmail.com>
 ;; URL: https://github.com/emacs-openai/lsp-uniteai
 ;; Version: 0.1.0
-;; Package-Requires: ((emacs "27.1") (lsp-mode "6.1"))
+;; Package-Requires: ((emacs "28.1") (lsp-mode "6.1"))
 ;; Keywords: convenience ai
 
 ;; This file is not part of GNU Emacs.
